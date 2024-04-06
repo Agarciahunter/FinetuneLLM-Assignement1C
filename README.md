@@ -1,8 +1,8 @@
 # FinetuneLLM-Assignement1C - Aiden Garcia-Rubio
 ## Instructions
-### Envrionment Setup
+### Environment Setup
 
-Inorder to run make sure that you have the environment.yml file aviablable in your current directory. Then create the environment using this code:
+In order to run everything, make sure that you have the environment.yml file available in your current directory. Then create the environment using this code:
 
 `conda env create -f environment.yml`
 
@@ -10,7 +10,7 @@ Once it is created you need to activate it with:
 
 `conda activate arc1c`
 
-**NOTE** the enviorment will need to be acctivated any time you return.
+**NOTE** the environment will need to be activated any time you return.
 
 ### Fine Tuning (Task 1)
 After that, you can use:
@@ -25,25 +25,26 @@ or
 
 `python Phi2Train.py`
 
-To Train the models on the [the python code dataset](https://huggingface.co/datasets/flytech/python-codes-25k). If you want to adjuist the models you can also open the model files.
-**NOTE**  The models can take time to train. Also changining the model type for some of them can cause problems and lead to a "NotImplementedError: Cannot copy out of meta tensor; no data!". They can also cause problems later on when you try to use the evaluation code.
+To Train the models on the [the python code dataset](https://huggingface.co/datasets/flytech/python-codes-25k). If you want to adjust the models you can also open the model files.
+
+**NOTE** The models can take time to train. Also changing the model type for some of them can cause problems and lead to a "NotImplementedError: Cannot copy out of meta tensor; no data!". They can also cause problems later when you try to use the evaluation code.
 
 ### Metric Evaluations
-You can open `Evaluation.py` and comment/uncomment the models, the metrics to capture, and the hyperparamers and sizes to execute with. You can find these at the beginning of the code. There is also a variable to set the number of rows to execute. Once the code finishes running the Metric results will be saved to the 'Evaluation_Results.xlsx' file. You may need to wait a minute or two and refresh the explore to see the change.
+You can open `Evaluation.py` and comment/uncomment the models, the metrics to capture, and the hyperparameters and sizes to execute with. You can find these at the beginning of the code. There is also a variable to set the number of rows to execute. Once the code finishes running the Metric results will be saved to the 'Evaluation_Results.xlsx' file. You may need to wait a minute or two and refresh the explore to see the change.
 
 **Tip** ctrl/ is the shortcut to comment/uncomment lines
 
-**NOTE** Be sure that the fine tuned model is in the current directory to run
+**NOTE** Be sure that the fine-tuned model is in the current directory to run
 
-**ALSO NOTE**  Evaluation.py can be very slow. I recommend setting iterations to one or very low and commenting certain parameters if your testing out it out. 
+**ALSO NOTE** Evaluation.py can be slow. I recommend setting the iterations to one or a very low amount and commenting on certain parameters if you are testing it out. 
 
 Run `Evaluation.py` with
 
 `python Evaluation.py`
 
-**LAST NOTE** The `Atempts.py` can be used for evaluating the metrics however it contains a function that allows you to do human evaluation for the models and the hyperparameter tuining. This can take a while even with the iterations set to 1.
+**LAST NOTE** The `Atempts.py` can be used for evaluating the metrics, however it contains a function that allows you to do human evaluation for the models and the hyperparameter tuning. This can take a while even with the iterations set to 1.
 
-**Please see metrics tables and task discussions below (do to time constrants only 1 iteration was used):**
+**Please see metrics tables and task discussions below (due to time constraints only 1 iteration was used): **
 
 ---
 
@@ -88,9 +89,9 @@ Run `Evaluation.py` with
 </tbody>
 </table>
 
-**Write a discussion (4-5 Lines) explaining the comparison between two models. Moreover, compare the metrics and discuss which metrics are more appropriate compared to human evaluation.**
+**Write a discussion (4-5 Lines) explaining the comparison between two models. Moreover, compare the metrics and discuss which metrics are more appropriate compared to human evaluation. **
 
-The Mistral and Phi-2 models tend to outpefrom Llama model in most metrics. Phi-2 seems to perform the best out them. While Llama did answer the quesitons the length of the answer could be long. This would make it lose points because it often added answers to instructions it was not given. It wouldn't stop when it completed the question. This was most likly do to my limited training with the integrated runs. This problem did occur in the Phi-2 and Mistral tests but not as frequent as Llamas.
+The Mistral and Phi-2 models tend to outperform the Llama model in most metrics. Phi-2 seems to perform the best out them. While Llama did answer the questions the length of the answer could be long. This would make it lose points because it often added answers to instructions it was not given. It would not stop when it completed the question. This was most likely due to my limited training with the integrated runs. This problem did occur in the Phi-2 and Mistral tests but not as frequently as Llamas.
 
 
 ## Task 3
@@ -412,5 +413,5 @@ The Mistral and Phi-2 models tend to outpefrom Llama model in most metrics. Phi-
 </tbody>
 </table>
 
-**Write another discussion explaining the how the hyperparameters effect on the different metrics of LLaMA and Phi-2 (4-5 Lines).**
-Increasing the top_k parameter Would cause the BLEU Score and CodeBLEU to increase. This is most likely because it opens up the model to select from a bigger sampling of tokens. Increasing the beam size hyperparameter seems to raise the scores across the board for every metric except for the recall metric for Rouge-L recall. Finally Temparature seems cause the metrics to increase and decrease depending on its size. When the size was changed from .25 and .5 some of the metrics showed imporvement implying that there is an opitmal configuration for it. If it is too high then it opens the door for low probability tokens and if it is to low it can cause it to rely to much on more probable tokens based on its training data, resulting in less variation in generated text.
+**Write another discussion explaining how the hyperparameters affect the different metrics of LLaMA and Phi-2 (4-5 Lines). **
+Increasing the top_k parameter Would cause the BLEU Score and CodeBLEU to increase. This is most likely because it allows the model to select from a bigger sampling of tokens. Increasing the beam size hyperparameter seems to raise the scores across the board for every metric except for the recall metric for Rouge-L recall. Finally, Temperature seems cause the metrics to increase and decrease depending on its size. When the size was changed from .25 and .5 some of the metrics showed improvement implying that there is an optimal configuration for it. If it is too high then it opens the door for low probability tokens and if it is too low it can cause it to rely too much on more probable tokens based on its training data, resulting in less variation in generated text.
