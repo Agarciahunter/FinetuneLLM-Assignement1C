@@ -43,7 +43,7 @@ Run `Evaluation.py` with
 
 **LAST NOTE** The `Atempts.py` can be used for evaluating the metrics however it contains a function that allows you to do human evaluation for the models and the hyperparameter tuining. This can take a while even with the iterations set to 1.
 
-**Please see metrics tables and task discussions below (do to time constrants only 1 miteration was used):**
+**Please see metrics tables and task discussions below (do to time constrants only 1 iteration was used):**
 
 ---
 
@@ -95,14 +95,6 @@ The Mistral and Phi-2 models tend to outpefrom Llama model in most metrics. Phi-
 
 ## Task 3
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 20px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 20px;word-break:normal;}
-.tg .tg-nrix{text-align:center;vertical-align:middle}
-</style>
 <table class="tg">
 <thead>
   <tr>
