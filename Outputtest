@@ -1,0 +1,72 @@
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from datasets import load_dataset
+import random
+
+# Load the dataset
+dataset = load_dataset("flytech/python-codes-25k", split='train').train_test_split(test_size=0.001, train_size=0.01)
+
+# Extract instructions and corresponding outputs from the dataset
+input_instructions = dataset["test"]["instruction"]
+ground_truth = dataset["test"]["output"]
+
+# Filter instructions to keep only those with length <= 200
+filtered_instructions = []
+filtered_ground_truth = []
+
+for i in range(len(input_instructions)):
+    if len(input_instructions[i]) <= 200:
+        filtered_instructions.append(input_instructions[i])
+        filtered_ground_truth.append(ground_truth[i])
+
+# Initialize the model and tokenizer
+model_path = "./Llama"
+model = AutoModelForCausalLM.from_pretrained(model_path)
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+
+# Number of samples to choose
+num_samples = 20
+
+# Initialize variables to store cumulative scores
+total_compilability_score = 0
+total_correctness_score = 0
+
+# Choose random samples from the instructions
+random_indices = random.sample(range(len(filtered_instructions)), num_samples)
+
+# Generate text for each random instruction and collect human evaluation scores
+for idx in random_indices:
+    prompt = filtered_instructions[idx]
+    expected_output = filtered_ground_truth[idx]
+
+    input_ids = tokenizer(prompt, return_tensors="pt").input_ids
+    outputs = model.generate(input_ids, max_length=200)
+    generated_code = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    # Print instruction, generated text, and expected output for reference
+    print("Instruction:", prompt)
+    print()
+    print("Generated Code:")
+    print(generated_code)
+    print()
+    print("Expected Output:")
+    print(expected_output)
+
+    # Simulate human evaluation scores (you should replace this with your actual evaluation process)
+    compilability_score = float(input("Rate the compilability (0-1) of the generated code: "))
+    correctness_score = float(input("Rate the functional correctness (0-1) of the generated code: "))
+
+    # Accumulate scores
+    total_compilability_score += compilability_score
+    total_correctness_score += correctness_score
+
+    print("=" * 50)
+# Calculate average scores
+average_compilability_score = total_compilability_score / num_samples
+average_correctness_score = total_correctness_score / num_samples
+
+# Calculate final human evaluation score based on the formula (1)
+final_human_evaluation_score = (average_compilability_score + average_correctness_score) / 2
+
+print("Average Compilability Score:", average_compilability_score)
+print("Average Correctness Score:", average_correctness_score)
+print("Final Human Evaluation Score (based on formula (1)):", final_human_evaluation_score)
